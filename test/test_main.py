@@ -20,7 +20,7 @@ def test_print_group_random_users_to_console_from_main(mock_input, mock_generate
     main(2)
 
     captured = capsys.readouterr()
-    assert captured.outer == [
+    assert captured.out == str([
         {
             "first_name": "John",
             "last_name": "Doe",
@@ -33,4 +33,4 @@ def test_print_group_random_users_to_console_from_main(mock_input, mock_generate
             "age": 25,
             "city": "New York"
         },
-    ]
+    ])+"\n"
