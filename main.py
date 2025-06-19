@@ -9,7 +9,7 @@ def main(cnt_generate_user):
 
     generated_users = []
 
-    for cnt in cnt_generate_user:
+    for cnt in range(cnt_generate_user):
         generator = generate_users(first_names, last_names, cities)
         generated_users.append(generator)
 
