@@ -43,3 +43,22 @@ def test_generate_random_age_for_generate_users(mock_random_randint):
     assert next(generator)["age"] == 25
 
     mock_random_randint.assert_called_once_with(18, 65)
+
+
+@pytest.mark.parametrize(
+    "first_name, last_name, city, raise_message",
+    [
+        ("John", ["Doe", "Kahil", "Birken"], ["New York", "Los Angeles"], "Имя должно быть передано в списке"),
+        (["John", "Mike", "Bob"], "Doe", ["New York", "Los Angeles"], "Фамилия должна быть передана в списке"),
+        (["John", "Mike", "Bob"], ["Doe", "Kahil", "Birken"], "New York", "Город должен быть передан в списке"),
+    ]
+)
+def test_incorrect_arg_type_for_generate_users(first_name, last_name, city, raise_message):
+    """Тестирует обработку ошибки, когда аргументы переданы не в списках"""
+    with pytest.raises(TypeError) as exc_info:
+        generate_users(
+            first_name,
+            last_name,
+            city
+        )
+    assert str(exc_info.value) == raise_message
