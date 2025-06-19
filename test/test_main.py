@@ -5,8 +5,11 @@ from main import main
 
 
 @patch('main.generate_users')
-def test_print_group_random_users_to_console_from_main(mock_generate_users, capsys):
+@patch('builtins.input')
+def test_print_group_random_users_to_console_from_main(mock_input, mock_generate_users, capsys):
     """Тестирует вывод сгенерированной группы пользователей в консоль"""
+    mock_input.return_value = "test"
+
     mock_generate_users.return_value = {
         "first_name": "John",
         "last_name": "Doe",
