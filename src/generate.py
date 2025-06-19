@@ -3,19 +3,13 @@ import random
 
 def generate_users(first_names, last_names, cities):
     """Генерирует случайного пользователя из полученных данных и возвращает его в словаре"""
-    args_with_incorrect_type = []
-    args = {
-        "first_names": first_names,
-        "last_names": last_names,
-        "cities": cities,
-    }
+    invalid_args = [name for name, arg in zip(
+        ['first_names', 'last_names', 'cities'],
+        [first_names, last_names, cities]
+    ) if not isinstance(arg, list)]
 
-    for key, value in args.items():
-        if not isinstance(value, list):
-            args_with_incorrect_type.append(key)
-
-    if len(args_with_incorrect_type) > 0:
-        raise TypeError(f"Аргументы должны быть переданы в списках. Не в списках: {", ".join(args_with_incorrect_type)}")
+    if invalid_args:
+        raise TypeError(f"Аргументы должны быть переданы в списках. Не в списках: {", ".join(invalid_args)}")
 
     while True:
         generated_user = {
