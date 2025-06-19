@@ -34,3 +34,13 @@ def test_print_group_random_users_to_console_from_main(mock_input, mock_generate
             "city": "New York"
         },
     ])+"\n"
+
+
+@patch('builtins.input')
+def test_incorrect_type_input_args_from_main(mock_input):
+    """Тестирует обработку ошибки некорректного ввода имени, фамилии, города"""
+    mock_input.side_effect = ["John", "Doe", "New York"]
+
+    with pytest.raises(ValueError) as exc_info:
+        main(2)
+    assert str(exc_info.value) == "Данные введены некорректно. Введите данные ещё раз через запятую"
