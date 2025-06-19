@@ -34,3 +34,13 @@ def test_print_group_random_users_to_console_from_main(mock_input, mock_generate
             "city": "New York"
         },
     ])+"\n"
+
+
+@patch('builtins.input')
+def test_input_none_for_main(mock_input):
+    """Тестирует обработку ошибки ввода None вместо параметров пользователя"""
+    mock_input.side_effect = [None, None, None]
+
+    with pytest.raises(ValueError) as exc_info:
+        main(2)
+    assert str(exc_info.value) == "Не введены параметры пользователя"
