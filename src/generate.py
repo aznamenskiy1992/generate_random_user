@@ -7,7 +7,7 @@ def generate_users(first_names, last_names, cities):
         generated_user = {
             "first_name": random.choice(first_names),
             "last_name": random.choice(last_names),
-            "age": 34,
+            "age": random.randint(18, 65),
             "city": random.choice(cities)
         }
         yield generated_user
