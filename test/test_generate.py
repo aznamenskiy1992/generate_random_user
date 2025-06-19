@@ -48,17 +48,14 @@ def test_generate_random_age_for_generate_users(mock_random_randint):
 @pytest.mark.parametrize(
     "first_name, last_name, city, raise_message",
     [
-        ("John", ["Doe", "Kahil", "Birken"], ["New York", "Los Angeles"], "Имя должно быть передано в списке"),
-        (["John", "Mike", "Bob"], "Doe", ["New York", "Los Angeles"], "Фамилия должна быть передана в списке"),
-        (["John", "Mike", "Bob"], ["Doe", "Kahil", "Birken"], "New York", "Город должен быть передан в списке"),
+        ("John", ["Doe", "Kahil", "Birken"], ["New York", "Los Angeles"], "Аргументы должны быть переданы в списках. Не в списках: first_names"),
+        (["John", "Mike", "Bob"], "Doe", ["New York", "Los Angeles"], "Аргументы должны быть переданы в списках. Не в списках: last_names"),
+        (["John", "Mike", "Bob"], ["Doe", "Kahil", "Birken"], "New York", "Аргументы должны быть переданы в списках. Не в списках: cities"),
+        ("John", "Doe", "New York", "Аргументы должны быть переданы в списках. Не в списках: first_names, last_names, cities"),
     ]
 )
 def test_incorrect_arg_type_for_generate_users(first_name, last_name, city, raise_message):
     """Тестирует обработку ошибки, когда аргументы переданы не в списках"""
     with pytest.raises(TypeError) as exc_info:
-        generate_users(
-            first_name,
-            last_name,
-            city
-        )
+        next(generate_users(first_name, last_name, city))
     assert str(exc_info.value) == raise_message
