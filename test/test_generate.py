@@ -27,3 +27,19 @@ def test_generate_random_first_last_name_and_cities_for_generate_users(column, a
         assert next(generator)[column] == result
 
         mock_random_choice.assert_any_call(assert_call_arg)
+
+
+@patch('random.randint')
+def test_generate_random_age_for_generate_users(mock_random_randint):
+    """Тестирует генерацию случайного возраста из диапазона 18-65 лет"""
+    mock_random_randint.return_value = 25
+
+    generator = generate_users(
+        ["John", "Mike", "Bob"],
+        ["Doe", "Kahil", "Birken"],
+        ["New York", "Los Angeles"]
+    )
+
+    assert next(generator)["age"] == 25
+
+    mock_random_randint.assert_called_once_with(18, 65)
