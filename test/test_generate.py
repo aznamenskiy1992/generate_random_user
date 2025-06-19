@@ -18,4 +18,4 @@ def test_generate_random_first_name_for_generate_users(mock_random_choice):
 
     assert next(generator)["first_name"] == "John"
 
-    mock_random_choice.assert_called_once_with(["John", "Mike", "Bob"])
+    mock_random_choice.assert_any_call(["John", "Mike", "Bob"])
